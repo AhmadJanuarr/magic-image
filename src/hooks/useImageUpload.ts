@@ -1,17 +1,23 @@
 import { ChangeEvent, useCallback, useState } from "react";
 import JSZip from "jszip";
+import { toast } from "sonner";
 
 export function useImageUpload() {
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [isConverting, setIsConverting] = useState(false);
   const [selectedFormat, setSelectedFormat] = useState([]);
-
+  const uploadMax = 10;
   const handleImageUploadChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     setIsUploading(true);
     try {
       if (files) {
+        if (files.length > uploadMax) {
+          toast.warning(`You can only upload up to ${uploadMax} images`);
+          setIsUploading(false);
+          return;
+        }
         const processDelay = Math.random() * (3000 - 1500) + 1500;
         setTimeout(() => {
           const fileArray = Array.from(files);
@@ -38,7 +44,15 @@ export function useImageUpload() {
     const files = e.target.files;
     if (files) {
       const fileArray = Array.from(files);
+      const totalImages = selectedImages.length + fileArray.length;
+
+      if (totalImages > uploadMax) {
+        toast.warning(`You can only upload up to ${uploadMax} images total`);
+        return;
+      }
+
       setSelectedImages([...selectedImages, ...fileArray]);
+      toast.success(`images added`);
     }
   };
 
