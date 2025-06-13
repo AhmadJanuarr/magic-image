@@ -17,6 +17,7 @@ export const SelectedImagesList = ({
   handleImageRemove,
 }: SelectedImagesListProps) => {
   const [isOpenRemove, setIsOpenRemove] = useState<number | null>(null);
+
   return (
     <>
       <div className="space-y-3">
@@ -33,7 +34,7 @@ export const SelectedImagesList = ({
                   exit={{ opacity: 0, x: 100 }}
                   transition={{ duration: 0.2 }}
                   onClick={() => handleImageRemove(index)}
-                  className="absolute top-0 right-0 w-1/2 h-full bg-accent z-10 flex items-center justify-center rounded-lg cursor-pointer"
+                  className="absolute top-0 right-0 w-1/2 h-full bg-accent z-10 lg:hidden flex items-center justify-center rounded-lg cursor-pointer"
                 >
                   <p className="text-white text-center text-lg font-bold">Remove</p>
                 </motion.div>
@@ -57,7 +58,7 @@ export const SelectedImagesList = ({
             </div>
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-                <span className="sub-heading text-gray-500 hidden lg:block">Convert to:</span>
+                <span className="sub-heading text-sm text-gray-500 hidden lg:block">Convert to:</span>
                 <select
                   className="bg-transparent border border-gray-200 rounded-md px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent/20 cursor-pointer"
                   value={selectedFormat}
@@ -72,6 +73,7 @@ export const SelectedImagesList = ({
               <button
                 className="p-1.5 rounded-full hidden lg:block hover:bg-red-50 text-gray-400 hover:text-red-400 transition-all duration-200"
                 aria-label="Remove"
+                onClick={() => handleImageRemove(index)}
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <path d="M6 18L18 6M6 6l12 12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -80,6 +82,10 @@ export const SelectedImagesList = ({
             </div>
           </div>
         ))}
+        <p className="text-sm text-gray-500 text-center">
+          {selectedImages.length} images selected,{" "}
+          {(selectedImages.reduce((acc, image) => acc + image.size, 0) / 1024 / 1024).toFixed(2)} MB total size
+        </p>
       </div>
     </>
   );
