@@ -1,6 +1,8 @@
 import { HeaderWrapper } from "@/components/layout/header/headerWrapper";
+import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
 import "./globals.css";
+import { FooterWrapper } from "@/components/layout/footer/footerWrapper";
 
 export const metadata: Metadata = {
   title: "Magic Image",
@@ -35,6 +37,8 @@ export default function RootLayout({
       <body className="antialiased" suppressHydrationWarning>
         <HeaderWrapper />
         {children}
+        <Toaster richColors />
+        <FooterWrapper />
       </body>
     </html>
   );
