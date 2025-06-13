@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
 
-First, run the development server:
+# 🎨 Magic Image
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+<figure>
+<img src="/public/example/example.png" width="800px" />
+<figcaption align="center">image preview</figcaption>
+</figure>
+Magic Image adalah aplikasi web ringan berbasis Next.js yang memungkinkan pengguna untuk mengunggah berbagai format gambar dan mengonversinya ke format WebP yang lebih ringkas dan cepat.
+
+## 🌟 Fitur Utama (v1.0)
+
+- **Upload Multi-format:** Mendukung PNG, JPEG, GIF, TIFF, SVG
+- **Konversi Instan ke WebP:** Konversi cepat dan efisien
+- **Quality Slider:** Atur tingkat kompresi (0-100)
+- **Download Langsung:** Unduh hasil konversi dengan mudah
+- **Error Handling:** Peringatan untuk format tidak didukung atau ukuran file berlebih
+- **Responsif:** Tampilan optimal di desktop, tablet, dan mobile
+
+## 🛠️ Tech Stack
+
+- **Framework:** Next.js v15.3.3 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS v4.1
+- **Image Processing:** Sharp
+- **Form Handling:** React Hook Form
+- **File Upload:** Multer (opsional)
+- **Deployment:** Vercel
+
+## 🎨 Desain UI/UX
+
+### Warna
+- Background: `#F7F7F7`
+- Secondary: `#696B6C`
+- Accent: `#4353FF`
+- Text Primary: `#1F232E`
+- Text Secondary: `#696B6C`
+
+### Typography
+- Font Primary: Inter/Poppins/Haura (Google Fonts)
+- Icons: React icons(Phosphor icons)
+
+## 📁 Struktur Folder
+
+```
+/app
+  ├─ /api
+  │   └─convert  
+  │    │   └─route.ts
+  ├─ /about
+  │   └─ page.tsx
+  ├─ layout.tsx
+  └─ page.tsx     ← Landing page
+/components
+  ├─ upload
+  │   └─ActionBar.tsx
+  │   └─CardUploadImageWrapper.tsx
+  │   └─SelectedImagesList.tsx
+  │   └─UploadPlaceHolder.tsx
+  ├─ LottieAnimation.tsx
+  ├─ layout
+  │   └─header
+  │   │    └─headerWrapper.tsx
+  │   └─footer
+  │   │    └─footerWrapper.tsx
+/lib
+  ├─ sharp-convert-image.ts ← fungsi pakai `sharp`
+ 
+/public
+  └─ (favicon, og image, dsb)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📝 CHANGELOG
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### [Unreleased]
+- Menambahkan batasan upload maksimal 10 gambar
+- Perbaikan UI/UX pada mobile view
+- Optimasi performa konversi gambar
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### [v1.0.0] - 14 june 2025
+#### Added
+- Fitur upload multi-format gambar (PNG, JPEG, GIF, TIFF, SVG)
+- Konversi gambar ke format WebP
+- Quality slider untuk mengatur tingkat kompresi
+- Fitur download hasil konversi
+- Error handling untuk format tidak didukung
+- Responsive design untuk desktop dan mobile
 
-## Learn More
+#### Changed
+- Refactor struktur folder untuk organisasi kode yang lebih baik
+- Optimasi performa konversi gambar menggunakan Sharp
+- Peningkatan UI/UX pada komponen upload
 
-To learn more about Next.js, take a look at the following resources:
+#### Fixed
+- Perbaikan bug pada mobile menu
+- Perbaikan layout pada berbagai ukuran layar
+- Perbaikan error handling untuk file yang tidak valid
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### [v0.1.0] - 02 june 2025
+#### Added
+- Setup awal proyek Next.js dengan TypeScript
+- Implementasi Tailwind CSS
+- Setup ESLint dan Prettier
+- Struktur folder dasar
+- Routing dasar (home, about, contact)
+- Layout dasar (header, footer)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
