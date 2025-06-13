@@ -1,10 +1,10 @@
 "use client";
 
 import { useImageUpload } from "@/hooks/useImageUpload";
+import { useState } from "react";
 import { SelectedImagesList } from "../uploads/SelectedImagesList";
 import { UploadPlaceholder } from "../uploads/UploadPlaceholder";
 import { ActionsBar } from "./ActionsBar";
-import { useState } from "react";
 
 export const CardUploadImageWrapper = () => {
   const [selectedFormat, setSelectedFormat] = useState("webp");
@@ -44,7 +44,7 @@ export const CardUploadImageWrapper = () => {
     <div className="w-full lg:w-5xl mx-auto rounded-xl relative p-1 border-2 border-dashed border-accent/20 z-10">
       <div className="w-full min-h-96 rounded-xl border-2 border-dashed border-accent/50 relative">
         {isProcessing && (
-          <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-50 rounded-xl">
             <div className="flex flex-col items-center gap-2">
               <div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
               <p className="text-accent font-medium sub-heading">Converting images...</p>
