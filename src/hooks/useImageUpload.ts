@@ -1,13 +1,50 @@
 import { ChangeEvent, useCallback, useState } from "react";
 import JSZip from "jszip";
 import { toast } from "sonner";
+import { useDropzone } from "react-dropzone";
 
 export function useImageUpload() {
-  const [selectedImages, setSelectedImages] = useState<File[]>([]);
+  const [file, setFile] = useState<File[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [isConverting, setIsConverting] = useState(false);
   const [selectedFormat, setSelectedFormat] = useState([]);
   const uploadMax = 10;
+
+  const handleDropzone = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    try {
+      if (e.dataTransfer.files.length > 0) {
+        const files = Array.from(e.dataTransfer.files);
+
+        const validFiles = files.filter((file) => {
+          const validTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+          return validTypes.includes(file.type);
+        });
+
+        if (validFiles.length === 0) {
+          toast.error("Please drop only image files (JPEG, PNG, GIF, WEBP)");
+          return;
+        }
+
+        // Check total files after adding new ones
+        const totalFiles = file.length + validFiles.length;
+        if (totalFiles > uploadMax) {
+          toast.warning(`You can only upload up to ${uploadMax} images total`);
+          return;
+        }
+
+        // Append new files to existing files
+        setFile((prevFiles) => [...prevFiles, ...validFiles]);
+        toast.success(`${validFiles.length} image(s) added successfully`);
+      }
+    } catch (error) {
+      console.error("Error in handleDropzone:", error);
+      toast.error("An error occurred while processing the files");
+    }
+  };
+
   const handleImageUploadChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     setIsUploading(true);
@@ -21,7 +58,7 @@ export function useImageUpload() {
         const processDelay = Math.random() * (3000 - 1500) + 1500;
         setTimeout(() => {
           const fileArray = Array.from(files);
-          setSelectedImages(fileArray);
+          setFile(fileArray);
 
           setTimeout(() => {
             setIsUploading(false);
@@ -35,23 +72,23 @@ export function useImageUpload() {
   };
 
   const handleImageRemove = (index: number) => {
-    const newImages = selectedImages.filter((_, i) => i !== index);
+    const newImages = file.filter((_, i) => i !== index);
     console.log(newImages, "newImages");
-    setSelectedImages(newImages);
+    setFile(newImages);
   };
 
   const handleAddImage = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files) {
       const fileArray = Array.from(files);
-      const totalImages = selectedImages.length + fileArray.length;
+      const totalImages = file.length + fileArray.length;
 
       if (totalImages > uploadMax) {
         toast.warning(`You can only upload up to ${uploadMax} images total`);
         return;
       }
 
-      setSelectedImages([...selectedImages, ...fileArray]);
+      setFile([...file, ...fileArray]);
       toast.success(`images added`);
     }
   };
@@ -149,10 +186,11 @@ export function useImageUpload() {
 
   return {
     isUploading,
-    selectedImages,
+    file,
     isConverting,
+    handleDropzone,
     convertMultiple,
-    setSelectedImages,
+    setFile,
     handleImageUploadChange,
     handleImageRemove,
     handleAddImage,
