@@ -4,14 +4,14 @@ import { Suspense, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 type SelectedImagesListProps = {
-  selectedImages: File[];
+  file: File[];
   selectedFormat: string;
   onFormatChange: (format: string) => void;
   handleImageRemove: (index: number) => void;
 };
 
 export const SelectedImagesList = ({
-  selectedImages,
+  file,
   selectedFormat,
   onFormatChange,
   handleImageRemove,
@@ -21,7 +21,7 @@ export const SelectedImagesList = ({
   return (
     <>
       <div className="space-y-3">
-        {selectedImages.map((image, index) => (
+        {file.map((image, index) => (
           <div
             key={index}
             className="bg-white/50 backdrop-blur-sm rounded-lg p-1 lg:p-3 flex items-center gap-4 group hover:bg-white/60 transition-all duration-200 overflow-hidden"
@@ -83,8 +83,8 @@ export const SelectedImagesList = ({
           </div>
         ))}
         <p className="text-sm text-gray-500 text-center">
-          {selectedImages.length} images selected,{" "}
-          {(selectedImages.reduce((acc, image) => acc + image.size, 0) / 1024 / 1024).toFixed(2)} MB total size
+          {file.length} images selected, {(file.reduce((acc, image) => acc + image.size, 0) / 1024 / 1024).toFixed(2)}{" "}
+          MB total size
         </p>
       </div>
     </>
