@@ -13,7 +13,7 @@ export const HeaderWrapper = () => {
     <>
       <header className="w-full py-4 px-4 md:px-8 border-b border-gray-100 bg-white backdrop-blur-sm z-50 top-0 left-0 sticky">
         <div className="mx-auto flex items-center justify-between">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-3 cursor-pointer" onClick={() => (window.location.href = "/")}>
             <Image
               src="/logo/new-logo-transparant.png"
               alt="Magic Image"
@@ -37,7 +37,7 @@ export const HeaderWrapper = () => {
           <div className="hidden md:flex items-center space-x-4">
             <span className="text-gray-500">Need help?</span>
             <Link
-              href="/contact"
+              href="https://wa.me/6281234567890"
               className="px-6 py-2 border border-accent text-accent hover:bg-accent hover:text-white transition-all duration-300 rounded-full"
             >
               Contact us
