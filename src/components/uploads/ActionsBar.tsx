@@ -1,8 +1,6 @@
-import setupAnimation from "@/lotties/setup.json";
+import settingsAnimation from "@/lotties/setting.json";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { LottieAnimation } from "../LottieAnimation";
-import { ChangeEvent, useState, useEffect, useRef } from "react";
-import { useImageUpload } from "@/hooks/useImageUpload";
-
 type ActionsBarProps = {
   handleAddImage: (e: ChangeEvent<HTMLInputElement>) => void;
   handleConvertImage: () => void;
@@ -59,7 +57,14 @@ export const ActionsBar = ({ handleAddImage, handleConvertImage }: ActionsBarPro
           aria-label="Settings"
           onClick={() => setShowQualityOptions(!showQualityOptions)}
         >
-          <LottieAnimation srcUrl={setupAnimation} width={50} height={50} loop={true} autoplay={false} />
+          <LottieAnimation
+            srcUrl={settingsAnimation}
+            width={50}
+            height={50}
+            loop={true}
+            autoplay={false}
+            className="size-10"
+          />
         </button>
         <button
           className="px-4 py-2 bg-accent/90 hover:bg-accent text-white rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-2 cursor-pointer"
