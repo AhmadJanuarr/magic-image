@@ -10,6 +10,7 @@ export const CardUploadImageWrapper = () => {
   const [selectedFormat, setSelectedFormat] = useState("webp");
   const [isDragging, setIsDragging] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
   const dragCounter = useRef(0);
   const {
     isUploading,
@@ -59,8 +60,6 @@ export const CardUploadImageWrapper = () => {
     e.preventDefault();
     e.stopPropagation();
     dragCounter.current--;
-
-    // Only set dragging to false when we've completely left the drop zone
     if (dragCounter.current === 0) {
       setIsDragging(false);
     }
@@ -76,29 +75,25 @@ export const CardUploadImageWrapper = () => {
 
   return (
     <div
-      className={`w-full lg:w-5xl mx-auto rounded-xl relative p-1 border-2 border-dashed transition-all duration-500 ease-out z-10 ${
-        isDragging
-          ? "border-accent bg-gradient-drag scale-[1.02] shadow-2xl shadow-accent/30 transform-gpu animate-glow"
-          : "border-accent"
-      }`}
+      className="w-full lg:w-5xl mx-auto rounded-xl relative p-1 border-2 border-dashed transition-all duration-500 ease-out z-10 border-accent/50"
       onDrop={handleDrop}
       onDragEnter={handleDragEnter}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
     >
-      {isDragging && (
-        <div className="absolute inset-0 rounded-xl animate-pulse">
-          <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-accent/20 via-accent/10 to-accent/20"></div>
-        </div>
-      )}
-
-      {isDragging && (
-        <div className="absolute inset-0 bg-gradient-to-br from-accent/15 to-accent/5 backdrop-blur-md flex items-center justify-center z-50 rounded-xl border-2 border-accent/50 animate-slide-in">
+      <div
+        className={`w-full min-h-96 rounded-xl border-2 border-dashed border-accent/50 relative transition-all duration-500`}
+      >
+        <div
+          className={`absolute inset-0 rounded-xl justify-center items-center flex flex-col z-40 pointer-events-none transition-all duration-300 bg-accent/90 backdrop-blur-sm ${
+            isDragging ? "opacity-100" : "opacity-0"
+          }`}
+        >
           <div className="flex flex-col items-center gap-6 text-center">
             <div className="relative">
-              <div className="w-20 h-20 bg-gradient-to-br from-accent/30 to-accent/10 rounded-full flex items-center justify-center shadow-lg animate-float">
+              <div className="w-20 h-20 bg-gradient-to-br from-accent/30 to-accent/10 rounded-full flex items-center justify-center shadow-lg">
                 <svg
-                  className="w-10 h-10 text-white animate-bounce"
+                  className="w-10 h-10 text-accent/80 animate-bounce z-40"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -112,7 +107,7 @@ export const CardUploadImageWrapper = () => {
                 </svg>
               </div>
               {/* Ripple effect */}
-              <div className="absolute inset-0 w-20 h-20 bg-accent/20 rounded-full animate-ripple"></div>
+              <div className="absolute inset-0 w-20 h-20 bg-white rounded-full"></div>
             </div>
             <div className="space-y-2">
               <p className="text-white font-bold text-xl mb-2">Drop your images here</p>
@@ -125,13 +120,6 @@ export const CardUploadImageWrapper = () => {
             </div>
           </div>
         </div>
-      )}
-
-      <div
-        className={`w-full min-h-96 rounded-xl border-2 border-dashed relative transition-all duration-500 ${
-          isDragging ? "border-accent/70 bg-accent/90" : "border-accent/50"
-        }`}
-      >
         {isProcessing && (
           <div className="absolute inset-0 bg-white/95 backdrop-blur-sm flex items-center justify-center z-50 rounded-xl">
             <div className="flex flex-col items-center gap-6">
@@ -150,8 +138,8 @@ export const CardUploadImageWrapper = () => {
                   ></div>
                 </div>
               </div>
-              <div className="text-center">
-                <p className="text-accent font-bold text-xl mb-2">Converting images...</p>
+              <div className="text-center py-5">
+                <p className="text-accent font-bold text-xl">Converting images...</p>
               </div>
             </div>
           </div>
