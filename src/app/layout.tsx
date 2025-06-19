@@ -5,6 +5,7 @@ import "./globals.css";
 import { FooterWrapper } from "@/components/layout/footer/footerWrapper";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
   title: "Magic Image",
   description:
     "Convert your images to any format for free. Just upload your image below to get started – No registration required!",
