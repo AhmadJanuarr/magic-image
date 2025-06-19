@@ -1,7 +1,13 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
 export const FooterWrapper = () => {
-  const currentYear = new Date().getFullYear();
+  const [currentYear, setCurrentYear] = useState("");
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear().toString());
+  }, []);
 
   return (
     <footer className="w-full py-8 px-6 bg-background/30 backdrop-blur-sm border-t border-accent/10">
@@ -44,7 +50,7 @@ export const FooterWrapper = () => {
             <li>
               <a
                 target="_blank"
-                href="ahmadjanuaramri2015@gmail.com"
+                href="mailto:ahmadjanuaramri2015@gmail.com"
                 className="text-sm text-gray-600 hover:text-accent transition-colors"
               >
                 Email Us
@@ -66,7 +72,9 @@ export const FooterWrapper = () => {
         {/* Copyright Section */}
         <div className="col-span-1 md:col-span-4 pt-6 mt-6 border-t border-accent/10">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
-            <p className="text-sm text-gray-600">© {currentYear} MagicImage v1.0</p>
+            <p className="text-sm text-gray-600">
+              © {currentYear || "2025"} MagicImage v{process.env.NEXT_PUBLIC_VERSION_APP}
+            </p>
             <p className="text-sm text-gray-500">Built with by Ahmad Januar</p>
           </div>
         </div>
