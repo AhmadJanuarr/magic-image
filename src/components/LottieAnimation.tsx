@@ -1,3 +1,4 @@
+"use client";
 import Lottie from "lottie-react";
 import { LottieComponentProps, LottieRefCurrentProps } from "lottie-react";
 import { Suspense, useEffect, useRef } from "react";
