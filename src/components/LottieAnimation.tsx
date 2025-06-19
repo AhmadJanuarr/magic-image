@@ -8,9 +8,10 @@ type LottieAnimationProps = {
   height: number;
   loop?: boolean;
   autoplay?: boolean;
+  className?: string;
 };
 
-export const LottieAnimation = ({ srcUrl, width, height, loop, autoplay }: LottieAnimationProps) => {
+export const LottieAnimation = ({ srcUrl, width, height, loop, autoplay, className }: LottieAnimationProps) => {
   const playerRef = useRef<LottieRefCurrentProps>(null);
 
   useEffect(() => {
@@ -25,7 +26,7 @@ export const LottieAnimation = ({ srcUrl, width, height, loop, autoplay }: Lotti
     }
   };
   const handleMouseLeave = () => {
-    if (playerRef.current) {
+    if (playerRef.current && !autoplay) {
       playerRef.current.pause();
     }
   };
@@ -43,6 +44,7 @@ export const LottieAnimation = ({ srcUrl, width, height, loop, autoplay }: Lotti
         onMouseLeave={handleMouseLeave}
         loop={loop}
         autoplay={autoplay}
+        className={className}
       />
     </Suspense>
   );
