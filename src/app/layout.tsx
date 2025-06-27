@@ -1,8 +1,9 @@
+import { FooterWrapper } from "@/components/layout/footer/footerWrapper";
 import { HeaderWrapper } from "@/components/layout/header/headerWrapper";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/context/themes/theme-provider";
 import type { Metadata } from "next";
 import "./globals.css";
-import { FooterWrapper } from "@/components/layout/footer/footerWrapper";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
@@ -34,13 +35,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="antialiased" suppressHydrationWarning>
-        <HeaderWrapper />
-        {children}
-        <Toaster richColors />
-        <FooterWrapper />
-      </body>
-    </html>
+    <ThemeProvider>
+      <html lang="en">
+        <body
+          className="antialiased bg-background dark:bg-background-dark text-primary dark:text-dark-primary transition-all duration-500"
+          suppressHydrationWarning
+        >
+          <HeaderWrapper />
+          {children}
+          <Toaster richColors />
+          <FooterWrapper />
+        </body>
+      </html>
+    </ThemeProvider>
   );
 }
