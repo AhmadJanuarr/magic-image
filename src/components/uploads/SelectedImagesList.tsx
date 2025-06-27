@@ -24,7 +24,7 @@ export const SelectedImagesList = ({
         {file.map((image, index) => (
           <div
             key={index}
-            className="bg-white/50 backdrop-blur-sm rounded-lg p-1 lg:p-3 flex items-center gap-4 group hover:bg-white/60 transition-all duration-200 overflow-hidden"
+            className="bg-white/50 dark:bg-background-dark/50 border border-gray-200 dark:border-gray-700 backdrop-blur-sm rounded-lg p-1 lg:p-3 flex items-center gap-4 group hover:bg-white/60 dark:hover:bg-background-dark/80 transition-all duration-200 overflow-hidden"
           >
             <AnimatePresence>
               {isOpenRemove === index && (
@@ -53,14 +53,14 @@ export const SelectedImagesList = ({
               </Suspense>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-gray-700 truncate">{image.name}</p>
+              <p className="text-sm font-medium dark:text-dark-primary">{image.name}</p>
               <p className="text-xs text-gray-500 truncate">{(image.size / 1024 / 1024).toFixed(3)} KB</p>
             </div>
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
                 <span className="sub-heading text-sm text-gray-500 hidden lg:block">Convert to:</span>
                 <select
-                  className="bg-transparent border border-gray-200 rounded-md px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent/20 cursor-pointer"
+                  className="bg-transparent border border-gray-200 dark:border-gray-700 dark:text-dark-primary rounded-md px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent/20 cursor-pointer dark:bg-background-dark"
                   value={selectedFormat}
                   onChange={(e) => onFormatChange(e.target.value)}
                 >
