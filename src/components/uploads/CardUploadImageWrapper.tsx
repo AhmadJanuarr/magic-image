@@ -1,20 +1,23 @@
 "use client";
 
 import { useImageUpload } from "@/hooks/useImageUpload";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { SelectedImagesList } from "../uploads/SelectedImagesList";
 import { UploadPlaceholder } from "../uploads/UploadPlaceholder";
 import { ActionsBar } from "./ActionsBar";
+import { UploadSuccessful } from "./UploadSuccessful";
 
 export const CardUploadImageWrapper = () => {
   const [selectedFormat, setSelectedFormat] = useState("webp");
   const [isDragging, setIsDragging] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const dragCounter = useRef(0);
   const {
     isUploading,
     file,
+    isUploadSuccessful,
     setFile,
     handleImageUploadChange,
     handleImageRemove,
@@ -22,11 +25,28 @@ export const CardUploadImageWrapper = () => {
     convertMultiple,
     convertSingle,
     handleDropzone,
+    setIsUploadSuccessful,
   } = useImageUpload();
+
+  // Reset success state when file changes
+  useEffect(() => {
+    if (file.length === 0) {
+      setShowSuccess(false);
+      setIsUploadSuccessful(false);
+    }
+  }, [file.length, setIsUploadSuccessful]);
+
+  // Show success component when conversion is successful
+  useEffect(() => {
+    if (isUploadSuccessful && !isProcessing) {
+      setShowSuccess(true);
+    }
+  }, [isUploadSuccessful, isProcessing]);
 
   const handleConvertImage = async () => {
     const processDelay = Math.random() * (3000 - 1500) + 1500;
     setIsProcessing(true);
+    setShowSuccess(false);
     try {
       setTimeout(async () => {
         if (file.length === 1) {
@@ -71,6 +91,12 @@ export const CardUploadImageWrapper = () => {
     dragCounter.current = 0;
     setIsDragging(false);
     handleDropzone(e);
+  };
+
+  const handleUploadMore = () => {
+    setFile([]);
+    setShowSuccess(false);
+    setIsUploadSuccessful(false);
   };
 
   return (
@@ -121,7 +147,7 @@ export const CardUploadImageWrapper = () => {
           </div>
         </div>
         {isProcessing && (
-          <div className="absolute inset-0 bg-white/95 backdrop-blur-sm flex items-center justify-center z-50 rounded-xl">
+          <div className="absolute inset-0 bg-white/95 dark:bg-background-dark/95 backdrop-blur-sm flex items-center justify-center z-50 rounded-xl">
             <div className="flex flex-col items-center gap-6">
               <div className="relative">
                 <div className="w-16 h-16 border-4 border-accent/20 rounded-full"></div>
@@ -146,6 +172,8 @@ export const CardUploadImageWrapper = () => {
         )}
         {file.length === 0 ? (
           <UploadPlaceholder handleImageChange={handleImageUploadChange} isUploading={isUploading} />
+        ) : showSuccess ? (
+          <UploadSuccessful onUploadMore={handleUploadMore} />
         ) : (
           <div className="w-full h-full p-3 lg:p-6 min-h-96 justify-between flex flex-col">
             <SelectedImagesList
