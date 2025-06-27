@@ -31,53 +31,51 @@
 }
 
 :root {
-  --background: #f7f7f7;
-  --secondary: #696b6c;
+  --background: #f7f7f8;
+  --background-dark: #111827;
+  --primary: #030712;
+  --dark-primary: #f3f4f6;
   --accent: #4353ff;
-  --text-primary: #1f232e;
-  --text-secondary: #696b6c;
   --font-hauora: "Hauora", sans-serif;
 }
-
-@theme inline {
+@theme {
   --color-background: var(--background);
-  --color-secondary: var(--secondary);
+  --color-background-dark: var(--background-dark);
   --color-accent: var(--accent);
-  --color-text-primary: var(--text-primary);
-  --color-text-secondary: var(--text-secondary);
+  --font-hauora: var(--font-hauora);
+  --color-primary: var(--primary);
+  --color-dark-primary: var(--dark-primary);
 }
-
+@custom-variant dark (&:where(.dark, .dark *));
 @layer components {
   .heading {
-    @apply text-[42px] font-extrabold text-text-primary;
+    @apply text-[42px] font-extrabold text-gray-900 dark:text-white;
   }
 
   .sub-heading {
-    @apply text-[14px] font-normal text-text-secondary;
+    @apply text-[14px] font-normal text-gray-600 dark:text-gray-400;
   }
 
   /* Responsive styles */
   @media (min-width: 1362px) {
     .heading {
-      @apply text-[62px] font-bold text-text-primary;
+      @apply text-[62px] font-bold text-gray-900 dark:text-white;
     }
     .sub-heading {
-      @apply text-[16px] font-normal text-text-secondary;
+      @apply text-[16px] font-normal text-gray-600 dark:text-gray-400;
     }
   }
 
   @media (min-width: 1920px) {
     .heading {
-      @apply text-[62px] font-bold text-text-primary;
+      @apply text-[62px] font-bold text-gray-900 dark:text-white;
     }
     .sub-heading {
-      @apply text-[16px] font-normal text-text-secondary;
+      @apply text-[16px] font-normal text-gray-600 dark:text-gray-400;
     }
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--text-primary);
   font-family: var(--font-hauora);
 }
