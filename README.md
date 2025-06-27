@@ -1,5 +1,8 @@
 
 
+<img src="https://magic-image-sigma.vercel.app/example/example-2.png" alt="hero image">
+
+
 ## Magic Image
 ---
 > Magic Image adalah aplikasi web ringan berbasis Next.js yang memungkinkan pengguna untuk mengunggah berbagai format gambar dan mengonversinya ke format WebP yang lebih ringkas dan cepat.
