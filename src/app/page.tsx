@@ -3,14 +3,14 @@ import { PiCheck } from "react-icons/pi";
 
 export default function Home() {
   return (
-    <section className="w-full min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section className="w-full min-h-screen flex items-center justify-center relative overflow-hidden ">
       {/* Background with Gaussian blur effect */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-0 left-0 size-96 -z-10 bg-purple-700/20 blur-[100px] rounded-full" />
         <div className="absolute bottom-0 right-0 size-96 -z-10 bg-pink-300/20 blur-[100px] rounded-full" />
       </div>
 
-      <div className="w-full min-h-screen flex flex-col items-center justify-center bg-background/30 backdrop-blur-sm z-10 px-3 pt-20 lg:pt-0">
+      <div className="w-full min-h-screen flex flex-col items-center justify-center z-10 px-3 pt-20 lg:pt-0">
         <div className="flex flex-col items-center justify-center gap-4">
           <h1 className="heading">Convert Image</h1>
           <p className="sub-heading max-w-2xl text-center">
