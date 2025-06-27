@@ -1,21 +1,14 @@
 import { LottieAnimation } from "../LottieAnimation";
-import loadingAnimation from "@/lotties/loading.json";
+import { UploadProcessing } from "./UploadProcessing";
 import uploadAnimation from "@/lotties/upload.json";
 
 type UploadPlaceholderProps = {
-  isUploading: boolean;
+  isUploading?: boolean;
   handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const UploadPlaceholder = ({ handleImageChange, isUploading }: UploadPlaceholderProps) => {
-  return isUploading ? (
-    <div className="w-full min-h-96 flex items-center justify-center">
-      <div className="w-36 text-center">
-        <LottieAnimation srcUrl={loadingAnimation} width={200} height={200} loop={true} autoplay={true} />
-        <p className="text-lg text-gray-500 animate-pulse sub-heading">Processing...</p>
-      </div>
-    </div>
-  ) : (
+const UploadPlaceholderContent = ({ handleImageChange }: UploadPlaceholderProps) => {
+  return (
     <label htmlFor="file-upload" className="z-0 justify-center items-center flex cursor-pointer w-full min-h-96 ">
       <div className="text-center items-center justify-center flex flex-col gap-4">
         <div className="w-36">
@@ -25,11 +18,15 @@ export const UploadPlaceholder = ({ handleImageChange, isUploading }: UploadPlac
           <h2 className="text-2xl font-semibold mb-2 sub-heading">Upload your images</h2>
           <p>
             <span className="text-accent hover:font-bold transition-all duration-300 sub-heading">Select images</span>{" "}
-            or <span className="text-primary sub-heading">Drag & Drop</span>
+            <span className="text-primary sub-heading dark:text-dark-primary"> or Drag & Drop</span>
           </p>
         </div>
       </div>
       <input type="file" multiple accept="image/*" className="hidden" id="file-upload" onChange={handleImageChange} />
     </label>
   );
+};
+
+export const UploadPlaceholder = ({ handleImageChange, isUploading }: UploadPlaceholderProps) => {
+  return isUploading ? <UploadProcessing /> : <UploadPlaceholderContent handleImageChange={handleImageChange} />;
 };
