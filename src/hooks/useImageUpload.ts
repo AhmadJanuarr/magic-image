@@ -7,6 +7,7 @@ export function useImageUpload() {
   const [file, setFile] = useState<File[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [isConverting, setIsConverting] = useState(false);
+  const [isUploadSuccessful, setIsUploadSuccessful] = useState(false);
   const [selectedFormat, setSelectedFormat] = useState([]);
   const uploadMax = 10;
 
@@ -35,6 +36,9 @@ export function useImageUpload() {
           return;
         }
 
+        // Reset success state when adding new files
+        setIsUploadSuccessful(false);
+
         // Append new files to existing files
         setFile((prevFiles) => [...prevFiles, ...validFiles]);
         toast.success(`${validFiles.length} image(s) added successfully`);
@@ -59,6 +63,9 @@ export function useImageUpload() {
         setTimeout(() => {
           const fileArray = Array.from(files);
           setFile(fileArray);
+
+          // Reset success state when uploading new files
+          setIsUploadSuccessful(false);
 
           setTimeout(() => {
             setIsUploading(false);
@@ -120,6 +127,7 @@ export function useImageUpload() {
       const blob = await res.blob();
       if (blob) {
         handleDownload(blob, `converted-${file.name.split(".")[0]}.${format}`);
+        setIsUploadSuccessful(true);
       }
       return blob;
     } catch (err) {
@@ -178,6 +186,7 @@ export function useImageUpload() {
         console.error("Error in convertMultiple:", err);
         return [];
       } finally {
+        setIsUploadSuccessful(true);
         setIsConverting(false);
       }
     },
@@ -188,6 +197,7 @@ export function useImageUpload() {
     isUploading,
     file,
     isConverting,
+    isUploadSuccessful,
     handleDropzone,
     convertMultiple,
     setFile,
@@ -195,5 +205,6 @@ export function useImageUpload() {
     handleImageRemove,
     handleAddImage,
     convertSingle,
+    setIsUploadSuccessful,
   };
 }
